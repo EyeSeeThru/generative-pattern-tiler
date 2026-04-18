@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generative Pattern Tiler</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>🎨 Generative Pattern Tiler</h1>
+            <p>Create seamless tiling patterns with circle packing, wave interference, geometric shapes, and cellular patterns.</p>
+        </header>
+
+        <main>
+            <div class="controls">
+                <div class="control-group">
+                    <label for="pattern-type">Pattern Type</label>
+                    <select id="pattern-type">
+                        <option value="circle-packing">Circle Packing</option>
+                        <option value="wave-interference">Wave Interference</option>
+                        <option value="geometric-tiling">Geometric Tiling</option>
+                        <option value="cellular">Cellular (Voronoi)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="seed">Seed</label>
+                    <input type="number" id="seed" value="42" min="0" max="999999">
+                    <button id="random-seed" title="Random seed">🎲</button>
+                </div>
+
+                <div class="control-group">
+                    <label for="width">Width</label>
+                    <input type="range" id="width" value="200" min="50" max="800" step="10">
+                    <span id="width-val">200</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="height">Height</label>
+                    <input type="range" id="height" value="200" min="50" max="800" step="10">
+                    <span id="height-val">200</span>
+                </div>
+
+                <div class="control-group" id="density-control">
+                    <label for="density">Density</label>
+                    <input type="range" id="density" value="0.5" min="0.1" max="1" step="0.05">
+                    <span id="density-val">0.5</span>
+                </div>
+
+                <div class="control-group hidden" id="min-radius-control">
+                    <label for="min-radius">Min Radius</label>
+                    <input type="range" id="min-radius" value="5" min="2" max="20" step="1">
+                    <span id="min-radius-val">5</span>
+                </div>
+
+                <div class="control-group" id="max-radius-control">
+                    <label for="max-radius">Max Radius</label>
+                    <input type="range" id="max-radius" value="20" min="5" max="50" step="1">
+                    <span id="max-radius-val">20</span>
+                </div>
+
+                <div class="control-group hidden" id="wave-count-control">
+                    <label for="wave-count">Wave Count</label>
+                    <input type="range" id="wave-count" value="3" min="1" max="8" step="1">
+                    <span id="wave-count-val">3</span>
+                </div>
+
+                <div class="control-group hidden" id="frequency-control">
+                    <label for="frequency">Frequency</label>
+                    <input type="range" id="frequency" value="0.1" min="0.01" max="0.5" step="0.01">
+                    <span id="frequency-val">0.1</span>
+                </div>
+
+                <div class="control-group hidden" id="shape-control">
+                    <label for="shape">Shape</label>
+                    <select id="shape">
+                        <option value="hexagon">Hexagon</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="square">Square</option>
+                    </select>
+                </div>
+
+                <div class="control-group hidden" id="scale-control">
+                    <label for="scale">Scale</label>
+                    <input type="range" id="scale" value="1.5" min="0.5" max="3" step="0.1">
+                    <span id="scale-val">1.5</span>
+                </div>
+
+                <div class="control-group hidden" id="cell-count-control">
+                    <label for="cell-count">Cell Count</label>
+                    <input type="range" id="cell-count" value="25" min="4" max="100" step="1">
+                    <span id="cell-count-val">25</span>
+                </div>
+
+                <div class="control-group hidden" id="jitter-control">
+                    <label for="jitter">Jitter</label>
+                    <input type="range" id="jitter" value="0.3" min="0" max="1" step="0.05">
+                    <span id="jitter-val">0.3</span>
+                </div>
+
+                <div class="control-group">
+                    <label for="palette-type">Color Palette</label>
+                    <select id="palette-type">
+                        <option value="random-vibrant">Random Vibrant</option>
+                        <option value="analogous">Analogous</option>
+                        <option value="complementary">Complementary</option>
+                        <option value="triadic">Triadic</option>
+                        <option value="monochrome">Monochrome</option>
+                    </select>
+                </div>
+
+                <div class="control-group" id="base-color-control">
+                    <label for="base-color">Base Color</label>
+                    <input type="color" id="base-color" value="#6366f1">
+                </div>
+
+                <div class="control-group">
+                    <label for="seamless">
+                        <input type="checkbox" id="seamless" checked>
+                        Seamless Tiling
+                    </label>
+                </div>
+
+                <div class="button-row">
+                    <button id="generate">Generate Pattern</button>
+                    <button id="animate">Animate</button>
+                </div>
+            </div>
+
+            <div class="preview-area">
+                <div class="preview-container">
+                    <canvas id="pattern-canvas"></canvas>
+                </div>
+                <div class="export-buttons">
+                    <button id="export-svg">Export SVG</button>
+                    <button id="export-png">Export PNG</button>
+                    <button id="export-json">Export JSON</button>
+                </div>
+                <div class="palette-preview" id="palette-preview"></div>
+                <div class="animation-controls hidden" id="animation-controls">
+                    <label>Animation Frame:</label>
+                    <input type="range" id="frame-slider" min="0" max="9" value="0">
+                    <span id="frame-val">0 / 10</span>
+                    <button id="prev-frame">◀</button>
+                    <button id="next-frame">▶</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built with pure JavaScript + Canvas API. No dependencies.</p>
+            <p>Inspired by generative art and seamless tiling patterns.</p>
+        </footer>
+    </div>
+
+    <script src="js/pattern-core.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
