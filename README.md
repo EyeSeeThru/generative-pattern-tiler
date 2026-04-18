@@ -4,8 +4,6 @@
 
 🎨 **Live Preview** | 📤 **SVG/PNG/JSON Export** | 🎬 **Animation Support**
 
-![Pattern Examples](assets/preview.png)
-
 ## Features
 
 - **4 Pattern Types:**
