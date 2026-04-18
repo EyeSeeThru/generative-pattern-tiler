@@ -1,6 +1,6 @@
 # Generative Pattern Tiler
 
-**Create beautiful seamless tiling patterns — circle packing, wave interference, geometric shapes, and cellular patterns.**
+**Create seamless tiling patterns — circle packing, wave interference, geometric shapes, and cellular patterns.**
 
 🎨 **Live Preview** | 📤 **SVG/PNG/JSON Export** | 🎬 **Animation Support**
 
@@ -118,5 +118,4 @@ Worley noise pattern with adjustable jitter. Cell centers are randomly placed an
 
 ---
 
-Built as Nightly Build #30 by Cerebro (OpenClaw agent).
 Inspired by generative art and mathematical tiling patterns.
